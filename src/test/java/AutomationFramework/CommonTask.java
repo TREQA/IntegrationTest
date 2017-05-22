@@ -1,6 +1,10 @@
 package AutomationFramework;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.Calendar;
 import java.util.List;
+
+import com.typesafe.config.ConfigException;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 public class CommonTask {
 
@@ -353,7 +358,72 @@ public class CommonTask {
         return false;
     }
 
+    public static void waitGeneralMethod(WebDriver driver, WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, DataItems.shortWait);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
 
+    public static String generateUserNumber (String filePath)  {
+        //Generate a number used to increment username/email for new users at signup
+
+        //Initialise a Number with value null to begin
+        String usrNumber = "null";
+        try {
+
+            //Access file to read
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+
+            //Get current ID
+            String idString = br.readLine();
+            int id = Integer.valueOf(idString);
+
+            //Increment ID to be written back to file
+            id++;
+
+            //Safely close file
+            br.close();
+
+            //Access file to write
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+            //Write incremented id to file
+            bw.write(String.valueOf(id));
+
+            //Safely close file
+            bw.close();
+
+            usrNumber = String.valueOf(id);
+
+        } catch (IOException e) {
+            System.out.println(" IOException handling the ID file");
+        }
+
+            //Return generated number
+          return usrNumber;
+    }
+
+    public static String getUserFileNumber () {
+        String usrNumber = "null";
+
+        try {
+
+            //Access file to read
+            BufferedReader br = new BufferedReader(new FileReader(DataItems.emailFilePath));
+
+            //Get current ID
+            String idString = br.readLine();
+
+            br.close();
+
+            usrNumber = idString;
+
+        } catch (IOException e) {
+            System.out.println(" IOException handling the ID file");
+        }
+
+        //Return generated number
+        return usrNumber;
+    }
 
 
 
