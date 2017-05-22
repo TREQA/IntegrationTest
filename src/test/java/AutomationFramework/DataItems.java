@@ -1,6 +1,5 @@
 package AutomationFramework;
 
-import java.io.IOException;
 
 public class DataItems {
 
