@@ -1,4 +1,5 @@
 package com.Indieframe.config;
+
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;

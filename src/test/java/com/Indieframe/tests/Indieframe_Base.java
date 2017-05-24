@@ -1,7 +1,9 @@
 package com.Indieframe.tests;
+
 import AutomationFramework.DataItems;
 import PageObjects.MainPage;
 import org.openqa.selenium.WebDriver;
+
 
 public class Indieframe_Base {
 
@@ -31,9 +33,8 @@ public class Indieframe_Base {
         System.out.println("Navigating to TEST Environment...");
         driver.get(DataItems.targetURL);
 
-        MainPage mp = new MainPage(driver);
-
         //Login with valid credentials
-        mp.logInWithUsernameAndPassword(username, password);
+        MainPage mp = new MainPage(driver);
+        mp.logInUsernameAndPassword(username, password);
     }
 }

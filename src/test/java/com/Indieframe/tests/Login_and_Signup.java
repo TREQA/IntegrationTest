@@ -1,7 +1,8 @@
 package com.Indieframe.tests;
 
-import AutomationFramework.CommonTask;
 import AutomationFramework.DataItems;
+import PageObjects.CreateAccountPage;
+import PageObjects.LoginPage;
 import PageObjects.MainPage;
 import com.Indieframe.DriverBase;
 import org.openqa.selenium.WebDriver;
@@ -9,11 +10,13 @@ import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import static AutomationFramework.CommonTask.*;
+import static AutomationFramework.DataItems.*;
 
 /**
  * Created by sraschitor on 19.05.2017.
  */
+
 public class Login_and_Signup extends DriverBase {
 
     @Test (groups = {"Indie"})
@@ -27,12 +30,12 @@ public class Login_and_Signup extends DriverBase {
         System.out.println("You have reached Test environment, proceed with Facebook login...");
 
         MainPage mp = new MainPage(driver);
-        mp.loginWithFacebook();
+        mp.logInFacebook();
         System.out.println("You have logged in Test environment with Facebook account, proceed with verification...");
 
         //Assert user log in name
         AssertJUnit.assertEquals("Username logged in is not correct", DataItems.displayNameFB, mp.userLabel.getText());
-        System.out.println("You have successfully logged in Test environment with a particular username created with Facebook.");
+        System.out.println("You have successfully logged in Test environment with a particular username created via Facebook.");
 
     }
 
@@ -43,12 +46,12 @@ public class Login_and_Signup extends DriverBase {
 
         //Log in test environment
         Indieframe_Base base = new Indieframe_Base(driver);
-        base.setUp("Log in to Test environment with email and password", "TestID LGEM", DataItems.validUsername, DataItems.validPassword);
+        base.setUp("Log in to Test environment with email and password", "TestID LGEM", validUsername, validPassword);
         System.out.println("You have reached Test environment and logged in with email and password, proceed with verification...");
 
         //Assert user log in name
         MainPage mp = new MainPage(driver);
-        AssertJUnit.assertEquals("Username logged in is not correct", DataItems.displayNameEmail, mp.userLabel.getText());
+        AssertJUnit.assertEquals("Username logged in is not correct", displayNameEmail, mp.userLabel.getText());
         System.out.println("You have successfully logged in Test environment with a a particular username and password.");
 
         //Log out of test environment and verify
@@ -56,7 +59,6 @@ public class Login_and_Signup extends DriverBase {
         mp.logOut();
         AssertJUnit.assertEquals("You are still logged in Test environment with an username", "Create free account", mp.createFreeAccButtonMainPage.getText());
         System.out.println("You have successfully logged out of the Test environment and are currently navigating as guest.");
-
 
     }
 
@@ -72,11 +74,11 @@ public class Login_and_Signup extends DriverBase {
 
         //Sign up with a new email account
         MainPage mp = new MainPage(driver);
-        mp.signUpWithEmail();
+        mp.signUpEmail();
         System.out.println("You have signed up with a new account from email, proceed with verification... ");
 
         //Assert user log in name
-        AssertJUnit.assertEquals("Username logged in is not correct", "Automated User" + CommonTask.getUserFileNumber(), mp.userLabel.getText());
+        AssertJUnit.assertEquals("Username logged in is not correct", "Automated User" + getUserFileNumber(), mp.userLabel.getText());
         System.out.println("You have successfully created a new username account with an email address.");
 
     }
@@ -93,14 +95,15 @@ public class Login_and_Signup extends DriverBase {
 
         //Attempt to log in with incorrect details (3 scenarios: incorrect email & password, incorrect email, incorrect password)
         MainPage mp = new MainPage(driver);
-        mp.logInWithEmailIncorrect("incorrectUsername", "incorrectPassword", DataItems.validUsername, DataItems.validPassword);
-        Assert.assertTrue(mp.wrongEmailNotification.isDisplayed(), "Wrong email/password notification is not displayed");
-        Assert.assertEquals(mp.wrongEmailNotification.getText(), "Wrong email/password!", "Wrong email/password notification doesn't have the correct message");
+        LoginPage lp = new LoginPage(driver);
+        mp.logInEmailIncorrect("incorrectUsername", "incorrectPassword", DataItems.validUsername, validPassword);
+        Assert.assertTrue(mp.errorNotification.isDisplayed(), "Wrong email/password notification is not displayed");
+        Assert.assertEquals(mp.errorNotification.getText(), "Wrong email/password!", "Wrong email/password notification doesn't have the correct message");
 
         //Attempt to recover password with incorrect email address
-        mp.recoverPassword();
-        Assert.assertTrue(mp.emailNotFoundNotification.isDisplayed(), "Email not found notification is not displayed");
-        Assert.assertEquals(mp.emailNotFoundNotification.getText(), "Email not found", "Message from email not found notification is not correct");
+        lp.recoverPassword();
+        Assert.assertTrue(mp.errorNotification.isDisplayed(), "Email not found notification is not displayed");
+        Assert.assertEquals(mp.errorNotification.getText(), "Email not found", "Message from email not found notification is not correct");
 
     }
 
@@ -116,8 +119,9 @@ public class Login_and_Signup extends DriverBase {
 
         //Attempt to sign up with a new email account using incorrect details (3 scenarios: empty fields, incorrect email format, not matching password)
         MainPage mp = new MainPage(driver);
-        mp.signUpWithEmailIncorrect();
-        Assert.assertTrue(mp.getFieldsMarkedError(mp.confirmPassField, "border-color"), "Mandatory fields are not highlighted red");
+        CreateAccountPage ca = new CreateAccountPage(driver);
+        mp.signUpEmailIncorrect();
+        Assert.assertTrue(mp.getFieldsMarkedError(ca.confirmPassField, "border-color"), "Mandatory fields are not highlighted red");
         System.out.println("Creating a new user with incomplete details was not possible, error notifications are properly displayed.");
 
     }
