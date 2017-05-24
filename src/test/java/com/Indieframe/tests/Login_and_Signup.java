@@ -83,12 +83,35 @@ public class Login_and_Signup extends DriverBase {
 
     @Test (groups = {"Indie"})
 
+    public void logInNeg () throws Exception {
+        WebDriver driver = getDriver();
+
+        //Log in test environment
+        Indieframe_Base base = new Indieframe_Base(driver);
+        base.setUp("Log in Test environment negative scenarios", "TestID LGN");
+        System.out.println("You have reached Test environment, proceed with email sign up...");
+
+        //Attempt to log in with incorrect details (3 scenarios: incorrect email & password, incorrect email, incorrect password)
+        MainPage mp = new MainPage(driver);
+        mp.logInWithEmailIncorrect("incorrectUsername", "incorrectPassword", DataItems.validUsername, DataItems.validPassword);
+        Assert.assertTrue(mp.wrongEmailNotification.isDisplayed(), "Wrong email/password notification is not displayed");
+        Assert.assertEquals(mp.wrongEmailNotification.getText(), "Wrong email/password!", "Wrong email/password notification doesn't have the correct message");
+
+        //Attempt to recover password with incorrect email address
+        mp.recoverPassword();
+        Assert.assertTrue(mp.emailNotFoundNotification.isDisplayed(), "Email not found notification is not displayed");
+        Assert.assertEquals(mp.emailNotFoundNotification.getText(), "Email not found", "Message from email not found notification is not correct");
+
+    }
+
+    @Test (groups = {"Indie"})
+
     public void signUpWithEmailNeg () throws Exception {
         WebDriver driver = getDriver();
 
         //Log in test environment
         Indieframe_Base base = new Indieframe_Base(driver);
-        base.setUp("Sign up in Test environment with email and password", "TestID SIEMN");
+        base.setUp("Sign up in Test environment negative scenarios", "TestID SIEMN");
         System.out.println("You have reached Test environment, proceed with email sign up...");
 
         //Attempt to sign up with a new email account using incorrect details (3 scenarios: empty fields, incorrect email format, not matching password)

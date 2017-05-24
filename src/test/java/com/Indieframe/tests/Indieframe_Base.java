@@ -34,6 +34,6 @@ public class Indieframe_Base {
         MainPage mp = new MainPage(driver);
 
         //Login with valid credentials
-        mp.loginWithUsernameAndPassword(username, password);
+        mp.logInWithUsernameAndPassword(username, password);
     }
 }

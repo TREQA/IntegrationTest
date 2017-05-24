@@ -72,16 +72,47 @@ public class MainPage {
     @FindBy (id = "idCountry_of_origin")
     public WebElement countryDropDownField;
 
-    @FindBy (xpath = "/html/body/div[2]/div")
+    @FindBy (css = "body > div.notification-wrapper > div")
     public WebElement markedFieldsNotification;
 
+    @FindBy (css = "body > div.notification-wrapper > div")
+    public WebElement wrongEmailNotification;
 
-    public void loginWithUsernameAndPassword (String username, String password){
+    @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/p[1]/a")
+    public WebElement recoverPasswordButton;
+
+    @FindBy (id ="reset_data")
+    public WebElement sendRecoverButton;
+
+    @FindBy (css = "body > div.notification-wrapper > div")
+    public WebElement emailNotFoundNotification;
+
+
+
+    public void logInWithUsernameAndPassword (String username, String password){
         loginButton.click();
         CommonTask.setInputField(driver, emailField, username);
         CommonTask.setInputField(driver, passwordField, password);
         emailLogin.click();
         CommonTask.waitGeneralMethod(driver, userLabel);
+    }
+
+    public void logInWithEmailIncorrect (String username1, String password1, String username2, String password2) {
+        loginButton.click();
+        CommonTask.setInputField(driver, emailField, username1);
+        CommonTask.setInputField(driver, passwordField, password1);
+        emailLogin.click();
+        CommonTask.waitGeneralMethod(driver, wrongEmailNotification);
+        Assert.assertTrue(wrongEmailNotification.isDisplayed(), "Wrong email/password notification is not displayed");
+        CommonTask.setInputField(driver, emailField, username2);
+        CommonTask.setInputField(driver, passwordField, password1);
+        emailLogin.click();
+        CommonTask.waitGeneralMethod(driver, wrongEmailNotification);
+        Assert.assertTrue(wrongEmailNotification.isDisplayed(), "Wrong email/password notification is not displayed");
+        CommonTask.setInputField(driver, emailField, username1);
+        CommonTask.setInputField(driver, passwordField, password2);
+        emailLogin.click();
+        CommonTask.waitGeneralMethod(driver, wrongEmailNotification);
     }
 
     public void logOut () {
@@ -150,10 +181,12 @@ public class MainPage {
         CommonTask.setInputField(driver, confirmPassField, "pass");
         createMyFreeAccButton.click();
         Assert.assertTrue(markedFieldsNotification.isDisplayed(), "Marked fields notification is not displayed" );
+    }
 
-
-
-
+    public void recoverPassword () {
+        recoverPasswordButton.click();
+        CommonTask.setInputField(driver, emailField, "invalidEmail");
+        sendRecoverButton.click();
     }
 
     public boolean getFieldsMarkedError (WebElement element, String value) {
