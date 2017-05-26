@@ -36,6 +36,11 @@ public class CreateAccountPage {
     @FindBy (xpath = "//*[@id=\"second_screen\"]/form/div[8]/button")
     public WebElement createMyFreeAccButton;
 
+    @FindBy (css = "#PageContent > div > div.if-wrap-form > div > header > h1")
+    public WebElement createFreeAccMessage;
+
+    @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/div[3]/p/a")
+    public WebElement createAccLogInButton;
 
 
 }

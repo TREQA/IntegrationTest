@@ -45,6 +45,9 @@ public class LoginPage {
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/p[1]/a")
     public WebElement recoverPasswordButton;
 
+    @FindBy (css = "#PageContent > div > div.if-wrap-form > div > header > h1")
+    public WebElement logInMessage;
+
     //General methods used in Login Page
 
     public void recoverPassword () {

@@ -91,7 +91,7 @@ public class Login_and_Signup extends DriverBase {
         //Log in test environment
         Indieframe_Base base = new Indieframe_Base(driver);
         base.setUp("Log in Test environment negative scenarios", "TestID LGN");
-        System.out.println("You have reached Test environment, proceed with email sign up...");
+        System.out.println("You have reached Test environment, proceed with negative log in...");
 
         //Attempt to log in with incorrect details (3 scenarios: incorrect email & password, incorrect email, incorrect password)
         MainPage mp = new MainPage(driver);
@@ -115,7 +115,7 @@ public class Login_and_Signup extends DriverBase {
         //Log in test environment
         Indieframe_Base base = new Indieframe_Base(driver);
         base.setUp("Sign up in Test environment negative scenarios", "TestID SIEMN");
-        System.out.println("You have reached Test environment, proceed with email sign up...");
+        System.out.println("You have reached Test environment, proceed with email negative sign up...");
 
         //Attempt to sign up with a new email account using incorrect details (3 scenarios: empty fields, incorrect email format, not matching password)
         MainPage mp = new MainPage(driver);
@@ -123,6 +123,22 @@ public class Login_and_Signup extends DriverBase {
         mp.signUpEmailIncorrect();
         Assert.assertTrue(mp.getFieldsMarkedError(ca.confirmPassField, "border-color"), "Mandatory fields are not highlighted red");
         System.out.println("Creating a new user with incomplete details was not possible, error notifications are properly displayed.");
+
+    }
+
+    @Test (groups ={"Indie"})
+
+    public void checkSignUp_LogIn_labels () throws Exception {
+        WebDriver driver = getDriver();
+
+        //Log in test environment
+        Indieframe_Base base = new Indieframe_Base(driver);
+        base.setUp("Check major labels from Sign up/ log in menus", "TestID SULIL");
+        System.out.println("You have reached Test environment, proceed with checking sign up and log in labels...");
+
+        //Cycle through log in, sign up, recover password menus and use SoftAssert
+        MainPage mp = new MainPage(driver);
+        mp.cycleThroughAuthScenarios();
 
     }
 

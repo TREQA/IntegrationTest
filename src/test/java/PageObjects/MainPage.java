@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.asserts.SoftAssert;
 
 import static AutomationFramework.CommonTask.*;
 import static AutomationFramework.DataItems.*;
@@ -39,6 +41,52 @@ public class MainPage {
 
     @FindBy (css = "body > div.notification-wrapper")
     public WebElement errorNotification;
+
+    @FindBy (css = "#lg-navigation > ul > li:nth-child(1) > a")
+    public WebElement photoVideoMenu;
+
+    @FindBy (css = "#lg-navigation > ul > li:nth-child(2) > a")
+    public WebElement reportersMenu;
+
+    @FindBy (css = "#lg-navigation > ul > li:nth-child(3) > a")
+    public WebElement aboutMenu;
+
+    @FindBy (css = "#lg-navigation > ul > li:nth-child(4) > a" )
+    public WebElement contactMenu;
+
+    @FindBy (xpath = "//*[@id=\"Newsfeed\"]/div[1]/span")
+    public WebElement typeCategory;
+
+    @FindBy (css = "#Newsfeed > div.main-filters.clearfix > ul > li.active > a" )
+    public WebElement contentCategory;
+
+    @FindBy (css = "#Newsfeed > div.main-filters.clearfix > ul > li:nth-child(2) > a")
+    public WebElement tagsCategory;
+
+    @FindBy (css = "#Newsfeed > div.main-filters.clearfix > ul > li:nth-child(3) > a")
+    public WebElement peopleCategory;
+
+    @FindBy (css = "#Newsfeed > div.main-filters.clearfix > ul > li:nth-child(4) > a")
+    public WebElement placesCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li.active > a" )
+    public WebElement allCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li:nth-child(2) > a")
+    public WebElement breakingCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li:nth-child(3) > a")
+    public WebElement newsCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li:nth-child(4) > a")
+    public  WebElement creativeCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li:nth-child(5) > a")
+    public WebElement natureCategory;
+
+    @FindBy (css = "#Newsfeed > div:nth-child(2) > ul > li:nth-child(6) > a")
+    public WebElement sportCategory;
+
 
     //General methods used in Main Page
 
@@ -155,6 +203,42 @@ public class MainPage {
             System.out.println("Exception handled by catch");
         }
             return result;
+    }
+
+    public void cycleThroughAuthScenarios () {
+        //Create new objects
+        LoginPage lp = new LoginPage(driver);
+        CreateAccountPage ca = new CreateAccountPage(driver);
+        RecoverAccountPage ra = new RecoverAccountPage(driver);
+        SoftAssert softAssert = new SoftAssert();
+
+        //Assert main page labels from menus and categories
+        softAssert.assertEquals(photoVideoMenu.getText(), "PHOTOS & VIDEOS", "Photo and videos menu doesn't have the correct label");
+        softAssert.assertEquals(reportersMenu.getText(), "REPORTERS", "Reporters menu doesn't have the correct label");
+        softAssert.assertEquals(aboutMenu.getText(), "ABOUT", "About menu doesn't have the correct label");
+        softAssert.assertEquals(contactMenu.getText(), "CONTACT", "Contact menu doesn't have the correct label");
+        softAssert.assertEquals(typeCategory.getText(), "Type");
+        softAssert.assertEquals(contentCategory.getText(), "Content");
+        softAssert.assertEquals(tagsCategory.getText(), "Tags");
+        softAssert.assertEquals(peopleCategory.getText(), "People");
+        softAssert.assertEquals(placesCategory.getText(), "Places");
+        softAssert.assertEquals(allCategory.getText(), "All");
+        softAssert.assertEquals(breakingCategory.getText(), "Breaking");
+        softAssert.assertEquals(newsCategory.getText(), "News");
+        softAssert.assertEquals(creativeCategory.getText(), "Creative");
+        softAssert.assertEquals(natureCategory.getText(), "Nature");
+        softAssert.assertEquals(sportCategory.getText(), "Sport");
+
+        createFreeAccButtonMainPage.click();
+        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/create-account/", "Create account URL is not correct");
+        softAssert.assertEquals(ca.createFreeAccMessage.getText(), "CREATE YOUR FREE ACCOUNT IN SECONDS", "Create free account message is not correct");
+        ca.createAccLogInButton.click();
+        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/login/", "Log in URL is not correct");
+        softAssert.assertEquals(lp.logInMessage.getText(), "LOG IN", "Log in message is not correct");
+        lp.recoverPasswordButton.click();
+        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/recover-account/", "Recover password URL is not correct");
+        softAssert.assertEquals(ra.recoverMessage.getText(), "RECOVER YOUR PASSWORD", "Recover message is not correct");
+        softAssert.assertAll();
     }
 
 

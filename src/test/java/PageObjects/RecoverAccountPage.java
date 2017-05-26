@@ -24,4 +24,7 @@ public class RecoverAccountPage {
     @FindBy(id ="reset_data")
     public WebElement sendRecoverButton;
 
+    @FindBy (css = "#PageContent > div > div.if-wrap-form > div > header > h1")
+    public WebElement recoverMessage;
+
 }
