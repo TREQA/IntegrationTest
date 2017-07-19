@@ -30,7 +30,7 @@ public class LoginPage {
     @FindBy(id = "inputPassword")
     public WebElement passwordField;
 
-    @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/form/div[4]/button")
+    @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/form/div[3]/button")
     public WebElement emailLoginButton;
 
     @FindBy(id = "email")

@@ -42,5 +42,8 @@ public class CreateAccountPage {
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/div[3]/p/a")
     public WebElement createAccLogInButton;
 
+    @FindBy (css = "#inputTerms")
+    public WebElement acceptCheckbox;
+
 
 }

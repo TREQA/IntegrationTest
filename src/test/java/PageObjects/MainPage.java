@@ -1,5 +1,7 @@
 package PageObjects;
 
+import AutomationFramework.CommonTask;
+import AutomationFramework.DataItems;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 import org.testng.asserts.SoftAssert;
+
+import java.io.IOException;
+
+import static org.testng.asserts.SoftAssert.*;
 
 import static AutomationFramework.CommonTask.*;
 import static AutomationFramework.DataItems.*;
@@ -24,13 +30,13 @@ public class MainPage {
 
     //Set locators for elements
 
-    @FindBy(xpath = "/html/body/nav/div/div[5]/ul/li[2]/a")
+    @FindBy(css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(2) > a")
     public WebElement loginButton;
 
     @FindBy (xpath = "/html/body/nav/div/div[5]/ul/li[1]/ul/li[4]/a")
     public WebElement logOutButton;
 
-    @FindBy (xpath = "/html/body/nav/div/div[5]/ul/li[1]/a")
+    @FindBy (css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(1) > a")
     public WebElement createFreeAccButtonMainPage;
 
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/button/p")
@@ -143,17 +149,19 @@ public class MainPage {
         waitGeneralMethod(driver, userLabel);
     }
 
-    public void signUpEmail () throws InterruptedException {
+    public void signUpEmail () throws InterruptedException, IOException {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
         ca.emailSignUpButton.click();
-        setInputField(driver, lp.emailField, "automateduser" + generateUserNumber(emailFilePath) + "@test.com");
-        setInputField(driver, ca.usernameField, "Automated User" + generateUserNumber(usernameFilePath));
+        String number = generateRandomUserNumber(DataItems.usernameFilePath);
+        setInputField(driver, lp.emailField, "automateduser" + number + "@test.com");
+        setInputField(driver, ca.usernameField, "Automated User" + number);
         setInputField(driver, lp.passwordField, "password");
         setInputField(driver, ca.confirmPassField, "password");
         ca.countryDropDownField.click();
         ca.countryDropDownField.sendKeys("Romania");
+        ca.acceptCheckbox.click();
         ca.createMyFreeAccButton.click();
         waitGeneralMethod(driver, userLabel);
     }
@@ -217,7 +225,7 @@ public class MainPage {
         softAssert.assertEquals(reportersMenu.getText(), "REPORTERS", "Reporters menu doesn't have the correct label");
         softAssert.assertEquals(aboutMenu.getText(), "ABOUT", "About menu doesn't have the correct label");
         softAssert.assertEquals(contactMenu.getText(), "CONTACT", "Contact menu doesn't have the correct label");
-        softAssert.assertEquals(typeCategory.getText(), "Type");
+        /*softAssert.assertEquals(typeCategory.getText(), "Type");
         softAssert.assertEquals(contentCategory.getText(), "Content");
         softAssert.assertEquals(tagsCategory.getText(), "Tags");
         softAssert.assertEquals(peopleCategory.getText(), "People");
@@ -227,7 +235,7 @@ public class MainPage {
         softAssert.assertEquals(newsCategory.getText(), "News");
         softAssert.assertEquals(creativeCategory.getText(), "Creative");
         softAssert.assertEquals(natureCategory.getText(), "Nature");
-        softAssert.assertEquals(sportCategory.getText(), "Sport");
+        softAssert.assertEquals(sportCategory.getText(), "Sport");*/
 
         createFreeAccButtonMainPage.click();
         softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/create-account/", "Create account URL is not correct");
@@ -239,6 +247,7 @@ public class MainPage {
         softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/recover-account/", "Recover password URL is not correct");
         softAssert.assertEquals(ra.recoverMessage.getText(), "RECOVER YOUR PASSWORD", "Recover message is not correct");
         softAssert.assertAll();
+
     }
 
 

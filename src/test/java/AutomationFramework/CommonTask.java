@@ -3,6 +3,8 @@ package AutomationFramework;
 import java.io.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -400,13 +402,41 @@ public class CommonTask {
           return usrNumber;
     }
 
+    public static String generateRandomUserNumber (String filePath) throws IOException {
+
+        String number = "null";
+
+        try {
+        Random generator = new Random();
+        int i = generator.nextInt(1999999999);
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+
+        //Write incremented id to file
+        bw.write(String.valueOf(i));
+
+        //Safely close file
+        bw.close();
+
+        number = String.valueOf(i);
+
+    } catch (IOException e) {
+        System.out.println(" IOException handling the ID file");
+    }
+
+        return number;
+    }
+
+
+
+
     public static String getUserFileNumber () {
         String usrNumber = "null";
 
         try {
 
             //Access file to read
-            BufferedReader br = new BufferedReader(new FileReader(DataItems.emailFilePath));
+            BufferedReader br = new BufferedReader(new FileReader(DataItems.usernameFilePath));
 
             //Get current ID
             String idString = br.readLine();

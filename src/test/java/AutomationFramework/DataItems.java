@@ -16,7 +16,6 @@ public class DataItems {
     public static int longWait = 20;
 
     // -------------- File paths
-    public static String emailFilePath = "C:\\atmTools\\Project\\Indieframe\\U.email.txt";
     public static String usernameFilePath = "C:\\atmTools\\Project\\Indieframe\\Username.txt";
 
 
