@@ -169,10 +169,8 @@ public class MainPage {
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
         ca.emailSignUpButton.click();
-
-        String randomNumber = string;
-        setInputField(driver, lp.emailField, "automateduser" + randomNumber + "@test.com");
-        setInputField(driver, ca.usernameField, "Automated User" + randomNumber);
+        setInputField(driver, lp.emailField, "automateduser" + string + "@test.com");
+        setInputField(driver, ca.usernameField, "Automated User" + string);
         setInputField(driver, lp.passwordField, "password");
         setInputField(driver, ca.confirmPassField, "password");
         ca.countryDropDownField.click();
