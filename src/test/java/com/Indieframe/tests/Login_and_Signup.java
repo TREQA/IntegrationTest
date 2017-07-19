@@ -74,11 +74,12 @@ public class Login_and_Signup extends DriverBase {
 
         //Sign up with a new email account
         MainPage mp = new MainPage(driver);
-        mp.signUpEmail();
+        String compare = mp.gerRandomString();
+        mp.signUpEmail(compare);
         System.out.println("You have signed up with a new account from email, proceed with verification... ");
 
         //Assert user log in name
-        AssertJUnit.assertEquals("Username logged in is not correct", "Automated User" + getUserFileNumber(), mp.userLabel.getText());
+        AssertJUnit.assertEquals("Username logged in is not correct", "Automated User" + compare, mp.userLabel.getText());
         System.out.println("You have successfully created a new username account with an email address.");
 
     }

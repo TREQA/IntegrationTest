@@ -152,26 +152,27 @@ public class MainPage {
 
 
 
-    protected String gerRandomString() {
+    public String gerRandomString() {
         String SALTCHARS = "1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
-        while (salt.length() < 18) { // length of the random string.
+        while (salt.length() < 3) { // length of the random string.
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
         String saltStr = salt.toString();
         return saltStr;
-
     }
 
-    public void signUpEmail () throws InterruptedException, IOException {
+    public void signUpEmail (String string) throws InterruptedException, IOException {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
         ca.emailSignUpButton.click();
-        setInputField(driver, lp.emailField, "automateduser" + gerRandomString() + "@test.com");
-        setInputField(driver, ca.usernameField, "Automated User" + gerRandomString());
+
+        String randomNumber = string;
+        setInputField(driver, lp.emailField, "automateduser" + randomNumber + "@test.com");
+        setInputField(driver, ca.usernameField, "Automated User" + randomNumber);
         setInputField(driver, lp.passwordField, "password");
         setInputField(driver, ca.confirmPassField, "password");
         ca.countryDropDownField.click();
