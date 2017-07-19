@@ -11,6 +11,7 @@ import org.testng.AssertJUnit;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static org.testng.asserts.SoftAssert.*;
 
@@ -149,14 +150,28 @@ public class MainPage {
         waitGeneralMethod(driver, userLabel);
     }
 
+
+
+    protected String gerRandomString() {
+        String SALTCHARS = "1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
+
     public void signUpEmail () throws InterruptedException, IOException {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
         ca.emailSignUpButton.click();
-        String number = generateRandomUserNumber(DataItems.usernameFilePath);
-        setInputField(driver, lp.emailField, "automateduser" + number + "@test.com");
-        setInputField(driver, ca.usernameField, "Automated User" + number);
+        setInputField(driver, lp.emailField, "automateduser" + gerRandomString() + "@test.com");
+        setInputField(driver, ca.usernameField, "Automated User" + gerRandomString());
         setInputField(driver, lp.passwordField, "password");
         setInputField(driver, ca.confirmPassField, "password");
         ca.countryDropDownField.click();
