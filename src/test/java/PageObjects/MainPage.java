@@ -2,6 +2,7 @@ package PageObjects;
 
 import AutomationFramework.CommonTask;
 import AutomationFramework.DataItems;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -162,6 +163,10 @@ public class MainPage {
         }
         String saltStr = salt.toString();
         return saltStr;
+    }
+
+    public String getRandomStrign(){
+        return RandomStringUtils.randomNumeric(17);
     }
 
     public void signUpEmail (String string) throws InterruptedException, IOException {

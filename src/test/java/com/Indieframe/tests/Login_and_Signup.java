@@ -74,7 +74,7 @@ public class Login_and_Signup extends DriverBase {
 
         //Sign up with a new email account
         MainPage mp = new MainPage(driver);
-        String compare = mp.gerRandomString();
+        String compare = mp.getRandomStrign();
         mp.signUpEmail(compare);
         System.out.println("You have signed up with a new account from email, proceed with verification... ");
 
