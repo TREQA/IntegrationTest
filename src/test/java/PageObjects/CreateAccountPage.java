@@ -33,13 +33,13 @@ public class CreateAccountPage {
     @FindBy (id = "idCountry_of_origin")
     public WebElement countryDropDownField;
 
-    @FindBy (xpath = "//*[@id=\"second_screen\"]/form/div[8]/button")
+    @FindBy (css = "#PageContent > div > div.if-wrap-form > div > form > div:nth-child(7) > button")
     public WebElement createMyFreeAccButton;
 
     @FindBy (css = "#PageContent > div > div.if-wrap-form > div > header > h1")
     public WebElement createFreeAccMessage;
 
-    @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/div[3]/p/a")
+    @FindBy (css = "#PageContent > div > div.if-wrap-form > div > p:nth-child(6) > a")
     public WebElement createAccLogInButton;
 
     @FindBy (css = "#inputTerms")

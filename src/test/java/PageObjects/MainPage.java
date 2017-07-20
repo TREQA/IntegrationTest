@@ -32,13 +32,13 @@ public class MainPage {
 
     //Set locators for elements
 
-    @FindBy(css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(2) > a")
+    @FindBy(css = "body > nav > div > div.hidden-xs > ul > li:nth-child(2) > a")
     public WebElement loginButton;
 
     @FindBy (xpath = "/html/body/nav/div/div[5]/ul/li[1]/ul/li[4]/a")
     public WebElement logOutButton;
 
-    @FindBy (css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(1) > a")
+    @FindBy (css = "body > nav > div > div.hidden-xs > ul > li:nth-child(1) > a")
     public WebElement createFreeAccButtonMainPage;
 
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/button/p")
@@ -165,22 +165,22 @@ public class MainPage {
         return saltStr;
     }
 
-    public String getRandomStrign(){
-        return RandomStringUtils.randomNumeric(17);
+    public String getRandomString(){
+        return RandomStringUtils.randomNumeric(10);
     }
 
-    public void signUpEmail (String string) throws InterruptedException, IOException {
+    public void signUpEmail (String string) {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
-        ca.emailSignUpButton.click();
+        //ca.emailSignUpButton.click();
         setInputField(driver, lp.emailField, "automateduser" + string + "@test.com");
         setInputField(driver, ca.usernameField, "Automated User" + string);
         setInputField(driver, lp.passwordField, "password");
         setInputField(driver, ca.confirmPassField, "password");
         ca.countryDropDownField.click();
         ca.countryDropDownField.sendKeys("Romania");
-        ca.acceptCheckbox.click();
+        //ca.acceptCheckbox.click();
         ca.createMyFreeAccButton.click();
         waitGeneralMethod(driver, userLabel);
     }
@@ -191,7 +191,7 @@ public class MainPage {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
-        ca.emailSignUpButton.click();
+        //ca.emailSignUpButton.click();
         ca.createMyFreeAccButton.click();
         waitGeneralMethod(driver, errorNotification);
         Assert.assertTrue(errorNotification.isDisplayed(), "Marked fields notification is not displayed");
@@ -257,13 +257,13 @@ public class MainPage {
         softAssert.assertEquals(sportCategory.getText(), "Sport");*/
 
         createFreeAccButtonMainPage.click();
-        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/create-account/", "Create account URL is not correct");
+        softAssert.assertEquals(driver.getCurrentUrl(), "https://www.indieframe.com/create-account/", "Create account URL is not correct");
         softAssert.assertEquals(ca.createFreeAccMessage.getText(), "CREATE YOUR FREE ACCOUNT IN SECONDS", "Create free account message is not correct");
         ca.createAccLogInButton.click();
-        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/login/", "Log in URL is not correct");
+        softAssert.assertEquals(driver.getCurrentUrl(), "https://www.indieframe.com/login/", "Log in URL is not correct");
         softAssert.assertEquals(lp.logInMessage.getText(), "LOG IN", "Log in message is not correct");
         lp.recoverPasswordButton.click();
-        softAssert.assertEquals(driver.getCurrentUrl(), "http://staging.indieframe.com/recover-account/", "Recover password URL is not correct");
+        softAssert.assertEquals(driver.getCurrentUrl(), "https://www.indieframe.com/recover-account/", "Recover password URL is not correct");
         softAssert.assertEquals(ra.recoverMessage.getText(), "RECOVER YOUR PASSWORD", "Recover message is not correct");
         softAssert.assertAll();
 
