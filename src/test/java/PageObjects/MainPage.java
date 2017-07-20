@@ -32,13 +32,13 @@ public class MainPage {
 
     //Set locators for elements
 
-    @FindBy(css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(2) > a")
+    @FindBy(css = "body > nav > div > div.hidden-xs > ul > li:nth-child(2) > a")
     public WebElement loginButton;
 
     @FindBy (xpath = "/html/body/nav/div/div[5]/ul/li[1]/ul/li[4]/a")
     public WebElement logOutButton;
 
-    @FindBy (css = "body > section.navbar-fixed-top.indie-navbar > nav > div > div.hidden-xs > ul > li:nth-child(1) > a")
+    @FindBy (css = "body > nav > div > div.hidden-xs > ul > li:nth-child(1) > a")
     public WebElement createFreeAccButtonMainPage;
 
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/button/p")
@@ -166,7 +166,7 @@ public class MainPage {
     }
 
     public String getRandomStrign(){
-        return RandomStringUtils.randomNumeric(17);
+        return RandomStringUtils.randomNumeric(10);
     }
 
     public void signUpEmail (String string) throws InterruptedException, IOException {
@@ -191,7 +191,7 @@ public class MainPage {
         CreateAccountPage ca = new CreateAccountPage(driver);
         LoginPage lp = new LoginPage(driver);
         createFreeAccButtonMainPage.click();
-        ca.emailSignUpButton.click();
+        //ca.emailSignUpButton.click();
         ca.createMyFreeAccButton.click();
         waitGeneralMethod(driver, errorNotification);
         Assert.assertTrue(errorNotification.isDisplayed(), "Marked fields notification is not displayed");

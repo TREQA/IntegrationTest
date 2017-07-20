@@ -62,7 +62,7 @@ public class Login_and_Signup_Test extends DriverBase {
 
     }
 
-    @Test (groups = {"Indie"})
+    @Test (groups = {"Indie"}, enabled = false)
 
     public void signUpWithEmail() throws Exception {
         WebDriver driver = getDriver();
