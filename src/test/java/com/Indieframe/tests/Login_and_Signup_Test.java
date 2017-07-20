@@ -17,7 +17,7 @@ import static AutomationFramework.DataItems.*;
  * Created by sraschitor on 19.05.2017.
  */
 
-public class Login_and_Signup extends DriverBase {
+public class Login_and_Signup_Test extends DriverBase {
 
     @Test (groups = {"Indie"})
 
