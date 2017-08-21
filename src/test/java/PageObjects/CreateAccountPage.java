@@ -21,7 +21,7 @@ public class CreateAccountPage {
 
     //Set locators for elements
 
-    @FindBy(xpath = "//*[@id=\"main_screen\"]/button[2]/p")
+    @FindBy(css = "#PageContent > div > div.if-wrap-form > div > form > div:nth-child(7) > button")
     public WebElement emailSignUpButton;
 
     @FindBy (id = "inputUsername")

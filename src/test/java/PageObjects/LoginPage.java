@@ -39,7 +39,7 @@ public class LoginPage {
     @FindBy(id = "pass")
     public WebElement fbPassword;
 
-    @FindBy (id = "u_0_2")
+    @FindBy (id = "u_0_0")
     public WebElement fbLogin;
 
     @FindBy (xpath = "//*[@id=\"PageContent\"]/div/div[1]/div/p[1]/a")
