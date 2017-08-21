@@ -30,12 +30,12 @@ public class DriverBase {
     }
 
 
-    /*@AfterMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public static void closeDriverObjects() {
         for (DriverFactory driverFactory : webDriverThreadPool) {
             driverFactory.quitDriver();
         }
-    }*/
+    }
 
 
 }
